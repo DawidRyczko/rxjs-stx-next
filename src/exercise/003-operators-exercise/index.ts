@@ -1,4 +1,4 @@
-import { forkJoin, from, fromEvent, Observable, of } from 'rxjs';
+import { forkJoin, from, fromEvent } from 'rxjs';
 import {
   concatAll,
   delay,
@@ -6,49 +6,36 @@ import {
   filter,
   map,
   mergeMap,
-  switchMap,
+  take,
+  takeLast,
   tap,
+  toArray,
 } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
-import { Todo, User } from '../models';
+import { User } from '../models';
 
 const btn1 = document.getElementById('1') as HTMLButtonElement;
 const btn2 = document.getElementById('2');
 const btn3 = document.getElementById('3');
 const btn4 = document.getElementById('4');
 const btn5 = document.getElementById('5') as HTMLButtonElement;
+const input6 = document.getElementById('6') as HTMLInputElement;
 
 // 1. Po kliknięciu, button powinien być wyłaczony, opóźnij zapytanie o 3 sekundy, po otrzymaniu
 // odpowiedzi włącz ponownie przycisk
 
-fromEvent<HTMLButtonElement>(btn1, 'click')
-  .pipe(
-    tap(() => (btn1.disabled = true)),
-    delay(2000),
-    exhaustMap(evt =>
-      ajax
-        .getJSON('http://api.icndb.com/jokes/random')
-        .pipe(tap(() => (btn1.disabled = false)))
-    )
-  )
-  .subscribe(console.log);
 
-// 2 Pobierze wszystkie posty dla usera o id 1, 5, 10
-/// https://jsonplaceholder.typicode.com/posts
+// 2. Użyj fromEvent klikając pobierz userów
+// wyświetl tylko jednego user z id===5
+// https://jsonplaceholder.typicode.com/users
+
+// 3. Użyj fromEvent na przycisku. Klikając pobierz userów i pozwól to zrobić tylko raz
+// https://jsonplaceholder.typicode.com/users
 
 
-const data = forkJoin([
-  ajax.getJSON<User[]>('https://jsonplaceholder.typicode.com/users'),
-  ajax.getJSON<Todo>('https://jsonplaceholder.typicode.com/todos'),
-]).pipe(map(response => response[0])).subscribe(console.log);
+// 4. Użyj fromEvent. Pobierz userów, potem weź id z ostatnich 4 pozycji
+// https://jsonplaceholder.typicode.com/users
+// Pobierz dla każdego id zadania
+// `https://jsonplaceholder.typicode.com/todos/?userId=${id}`
 
-
-
-
-// const users: Observable<User[]> = data[0].pipe();
-// users.subscribe(console.log)
-
-fromEvent(btn2, 'click')
-
-  .subscribe(console.log);
 
