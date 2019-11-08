@@ -1,0 +1,10 @@
+Dlaczeg Observable<Array> nie możemy użyć map na każdym item?
+Jak spłaszczyć listę?
+toArray() działa tylko jak observable się zakończy, nie działa z hot?
+https://stackoverflow.com/questions/35497017/rxjs-how-to-use-toarray-with-an-array-of-asynchronous-observables
+https://stackoverflow.com/questions/32190445/hot-and-cold-observables-are-there-hot-and-cold-operators
+
+http://www.angular.love/2018/06/13/rxjs-share-operator/
+
+
+1 Jak działa map a jak działa mergeMap, switchMap
